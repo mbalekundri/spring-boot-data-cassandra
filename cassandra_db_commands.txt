@@ -1,0 +1,71 @@
+Docker commands
+=========================
+1. To remove all Docker containers with the status exited, you can use the following command:
+    docker rm $(docker ps -aq -f status=exited)
+2. To remove all Docker images, you can use the following command:
+    docker rmi $(docker images -aq)
+3. CQL Tutorial:
+   a) https://celerdata.com/glossary/cassandra-query-language-cql
+   b) https://www.tutorialspoint.com/cassandra/cassandra_cqlsh.htm
+========================================
+
+Cassandra Docker Commands
+========================================
+docker pull cassandra:latest
+docker images
+docker network rm cassandra-network
+docker network create cassandra-network
+docker run --rm -d --name cassandra -p 9042:9042 --network cassandra-network cassandra
+## docker run --rm -d --name cassandra -p 9042:9042 --hostname cassandra --network cassandra-network cassandra
+docker ps 
+docker exec -it <container-name> cqlsh
+
+Create table tutorial
+===========================
+CREATE TABLE IF NOT EXISTS tutorial (
+    id UUID PRIMARY KEY,
+    title text,
+    description text,
+    published boolean
+);
+CREATE INDEX ON tutorial(title);
+
+
+
+Cassandra docker-compose.yml
+==============================
+docker-compose up -d
+==============================
+services:
+  cassandra:
+    image: cassandra:latest
+    container_name: cassandra
+    ports:
+      - "9042:9042"
+    networks:
+      - cassandra-network
+networks:
+  cassandra-network:
+    driver: bridge
+
+
+CQLSH commands
+=======================================
+https://javatechonline.com/spring-boot-cassandra-crud-examples/
+cqlsh> CREATE KEYSPACE invoicedata WITH REPLICATION = {'class' : 'SimpleStrategy','replication_factor' : 1};
+cqlsh> use invoicedata;
+cqlsh:invoicedata> drop keyspace mykeyspace;
+cqlsh:invoicedata> create table invoice(id int primary key, name text, number text, amount double);
+cqlsh:invoicedata> drop table invoicedata.mytable;
+cqlsh:invoicedata> select * from invoice;
+
+https://www.youtube.com/watch?v=ub6l628PfYU&t=351s
+https://www.bezkoder.com/spring-boot-cassandra-crud/
+cqlsh> DESCRIBE KEYSPACES;
+cqlsh> CREATE KEYSPACE IF NOT EXISTS my_keyspace WITH replication = {'class':'SimpleStrategy', 'replication_factor':1};
+cqlsh> USE my_keyspace;
+cqlsh:my_keyspace> CREATE TABLE IF NOT EXISTS greetings (id UUID PRIMARY KEY, message text);
+cqlsh:my_keyspace> INSERT INTO greetings (id, message) VALUES (uuid(), 'Hello, Cassandra!');
+cqlsh:my_keyspace> INSERT INTO greetings (id, message) VALUES (uuid(), 'Greetings from Spring Boot!');
+cqlsh:my_keyspace> select * from greetings;
+
