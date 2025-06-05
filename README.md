@@ -1,9 +1,10 @@
-cqlsh> CREATE KEYSPACE tutorials_keyspace WITH REPLICATION = {'class' : 'SimpleStrategy','replication_factor' : 1};
-cqlsh> use tutorials_keyspace;
 cqlsh:tutorials_keyspace> drop keyspace tutorial_keyspace;
-cqlsh:tutorials_keyspace> create table tutorials(id int primary key, name text, number text, amount double);
-cqlsh:tutorials_keyspace> drop table tutorials_keyspace.tutorials;
-cqlsh:tutorials_keyspace> select * from tutorials;
+cqlsh> CREATE KEYSPACE tutorial_keyspace WITH REPLICATION = {'class' : 'SimpleStrategy','replication_factor' : 1};
+cqlsh> use tutorial_keyspace;
+cqlsh:tutorials_keyspace> CREATE TABLE IF NOT EXISTS tutorial ( id UUID PRIMARY KEY, title text, description text, published boolean);
+cqlsh:tutorials_keyspace> CREATE INDEX ON tutorial(title);
+cqlsh:tutorials_keyspace> drop table tutorials_keyspace.tutorial;
+cqlsh:tutorials_keyspace> select * from tutorial;
 
 PRIMARY KEY (id, title)
 

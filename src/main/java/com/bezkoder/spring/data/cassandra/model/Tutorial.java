@@ -11,7 +11,6 @@ public class Tutorial {
   @PrimaryKey
   private UUID id;
 
-  @Column("title")
   private String title;
   private String description;
   private boolean published;

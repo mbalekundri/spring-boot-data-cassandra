@@ -19,6 +19,7 @@ docker run --rm -d --name cassandra -p 9042:9042 --network cassandra-network cas
 ## docker run --rm -d --name cassandra -p 9042:9042 --hostname cassandra --network cassandra-network cassandra
 docker ps 
 docker exec -it <container-name> cqlsh
+docker exec -it 6f1fbf2b803f cqlsh
 
 Create table tutorial
 ===========================

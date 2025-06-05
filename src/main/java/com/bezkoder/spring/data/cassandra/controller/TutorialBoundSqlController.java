@@ -76,6 +76,18 @@ public class TutorialBoundSqlController {
         }
     }
 
+    @PutMapping(value = "publishTutorial/{id}", produces = "application/json")
+    public ResponseEntity<Tutorial> publishTutorial(@PathVariable("id") UUID id) {
+        Optional<Tutorial> tutorialData = tutorialDao.findById(id);
+        if (tutorialData.isPresent()) {
+            Tutorial _tutorial = tutorialData.get();
+            _tutorial.setPublished(true);
+            return new ResponseEntity<>(tutorialDao.update(id, _tutorial), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
     @DeleteMapping(value="/{id}", produces = "application/json")
     public String deleteTutorial(@PathVariable("id") UUID id) {
         try {
